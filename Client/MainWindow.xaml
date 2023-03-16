@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"> 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Image Name="ImageBox" Margin="10"></Image>
-        <Button Grid.Row="1" Margin="5" Name="BtnSendRequest" Click="BtnSendRequest_Click"></Button>
+        <Button Grid.Row="1" Margin="5" Name="BtnSendRequest" Click="BtnSendRequest_Click" FontSize="20" FontFamily="Comic Sans Ms">Start</Button>
     </Grid>
 </Window>

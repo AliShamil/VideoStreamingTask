@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.IO.Compression;
 
 namespace Client
 {
@@ -43,7 +44,7 @@ namespace Client
                 do
                 {
                     var result = await client.ReceiveAsync();
-                    receivedBuffer = result.Buffer;
+                    receivedBuffer =Decompress(result.Buffer);
                     len = receivedBuffer.Length;
                     list.AddRange(receivedBuffer.Take(len));
 
@@ -64,6 +65,17 @@ namespace Client
             }
         }
 
+        private byte[] Decompress(byte[] data)
+        {
+            using (var compressedStream = new MemoryStream(data))
+            using (var gzipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+            using (var resultStream = new MemoryStream())
+            {
+                gzipStream.CopyTo(resultStream);
+                gzipStream.Close();
+                return resultStream.ToArray();
+            }
+        }
         private BitmapImage ByteArrayToImage(byte[] byteArray)
         {
             if (byteArray == null || byteArray.Length == 0) return null;
@@ -81,5 +93,6 @@ namespace Client
             image.Freeze();
             return image;
         }
+
     }
 }
